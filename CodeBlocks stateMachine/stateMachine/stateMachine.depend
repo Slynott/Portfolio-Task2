@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1483108914 source:c:\users\sue\downloads\codeblocks statemachine\statemachine\main.cpp
+	<iostream>
+	"sensor.h"
+	"idle.h"
+	"reading.h"
+	"button.h"
+	"display.h"
+	"system.h"
+
+1483114059 c:\users\sue\downloads\codeblocks statemachine\statemachine\include\sensor.h
+
+1483113043 c:\users\sue\downloads\codeblocks statemachine\statemachine\include\idle.h
+
+1483109087 c:\users\sue\downloads\codeblocks statemachine\statemachine\include\reading.h
+
+1483114058 c:\users\sue\downloads\codeblocks statemachine\statemachine\include\button.h
+
+1483114058 c:\users\sue\downloads\codeblocks statemachine\statemachine\include\display.h
+
+1483114499 c:\users\sue\downloads\codeblocks statemachine\statemachine\include\system.h
+
+1483113257 source:c:\users\sue\downloads\codeblocks statemachine\statemachine\src\button.cpp
+	"Button.h"
+
