@@ -18,84 +18,112 @@ class Machine
     {
         current = s;
     }
-    void on();
-    void off();
+    void sensing();
+    void idle();
+    void Processing();
 };
 
 class State
 {
   public:
-    virtual void on(Machine *m)
+    virtual void sensing(Machine *m)
     {
-        cout << "   already ON\n";
+        cout << "   System Sensing\n";
     }
-    virtual void off(Machine *m)
+    virtual void Idle(Machine *m)
     {
-        cout << "   already OFF\n";
+        cout << "   System Idle\n";
+    }
+    virtual void Processing(Machine *m)
+    {
+        cout <<" System Processing\n";
     }
 };
 
-void Machine::on()
+void Machine::Sensing()// sensing is a class
 {
-  current->on(this);
+  current->sensing(this);//callback function
 }
 
-void Machine::off()
+void Machine::idle()//idle is a class
 {
-  current->off(this);
+  current->idle(this);//callback function
 }
 
-class ON: public State
+void Machine::Processing()//processing is a class
+{
+    current->processing(this);//callback function
+}
+
+class Processing: public State
 {
   public:
-    ON()
+    Processing()
     {
-        cout << "   ON-ctor ";
+        cout << "   Processing-ctor ";//machine on processing
     };
-    ~ON()
+    ~Processing()
     {
-        cout << "   dtor-ON\n";
+        cout << "   dtor-processing\n";// machine off idle
     };
-    void off(Machine *m);
+    {
+        cout << "   going from Processing to Idle";
+        m->setCurrent(new Processing());
+        delete this;
+    }
+    void idle(Machine *m);
 };
 
-class OFF: public State
+class Sensing: public State
 {
   public:
-    OFF()
+    Sensing()
     {
-        cout << "   OFF-ctor ";
+        cout << "   Sensing-ctor ";// machine sensing
     };
-    ~OFF()
+    ~Sensing()
     {
-        cout << "   dtor-OFF\n";
+        cout << "   dtor-Sensing\n";
     };
-    void on(Machine *m)
+    void processing(Machine *m)
     {
-        cout << "   going from OFF to ON";
-        m->setCurrent(new ON());
+        cout << "   going from Sensing to Processing";
+        m->setCurrent(new Processing());
         delete this;
     }
 };
 
-void ON::off(Machine *m)
 {
-  cout << "   going from ON to OFF";
-  m->setCurrent(new OFF());
-  delete this;
-}
+  public:
+    Idle()
+    {
+        cout << "   Idle-ctor ";// machine idle
+    };
+    ~Idle()
+    {
+        cout << "   dtor-idle\n";
+    };
+    void Sensing(Machine *m)
+    {
+        cout << "   going from Idle to Sensing";
+        m->setCurrent(new Processing());
+        delete this;
+    }
+};
+
+
 
 Machine::Machine()
 {
-  current = new OFF();
+  current = new Idle();// all machines start in Idle state
   cout << '\n';
 }
 
 int main()
 {
-  void(Machine:: *ptrs[])() =
+  void(Machine:: *ptrs[])() =// ptrs pointers
   {
-    Machine::off, Machine::on
+    Machine::Idle, Machine::Sensing, Machine::Processing //machine pointers
   };
   Machine fsm;
   int num;
